@@ -30,7 +30,7 @@ public class Monster : MonoBehaviour
         if (!catched)
         {
             var v = transform.position - player.transform.position;
-            if (v.sqrMagnitude < 1)
+            if (v.sqrMagnitude < 5)
             {
                 Debug.Log("catched");
                 catched = true;

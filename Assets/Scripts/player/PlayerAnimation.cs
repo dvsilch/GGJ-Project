@@ -29,7 +29,7 @@ public class PlayerAnimation : MonoBehaviour
 
     public void setAnamition(){
         // Debug.Log("Animatior");
-        anim.SetFloat("velocityX",Mathf.Abs(rb.velocity.x));
+        anim.SetFloat("velocityX",Mathf.Abs(playerController.inputDirection.x));
         anim.SetFloat("velocityY",rb.velocity.y);
         anim.SetBool("isGround",phycicsCheck.isGround);
         anim.SetBool("isChange",playerController.Change);

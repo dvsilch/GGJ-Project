@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,9 @@ public class PlayerController : MonoBehaviour
     public float jumpForce;
     public bool Change;
     public bool isChooseplayer;
+    public new CinemachineVirtualCamera camera;
+    public CinemachineVirtualCamera camera_up;
+    public CinemachineVirtualCamera camera_down;
 
     private void Awake()
     {
@@ -28,6 +32,8 @@ public class PlayerController : MonoBehaviour
         inputControl.Gameplay.Jump.started += Jump;
         inputControl.Gameplay.Change.started += PlayerStateChange;
         inputControl.Gameplay.isChoose.started += PlayerChoose;
+        camera_up.enabled=false;
+        camera_down.enabled=true;
     }
 
 
@@ -48,7 +54,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void Update()
     {
-        inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
+        if (isChooseplayer)
+            inputDirection = inputControl.Gameplay.Move.ReadValue<Vector2>();
     }
 
     /// <summary>
@@ -56,11 +63,14 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        Move();
+        if(isChooseplayer){
+            camera.enabled=true;
+            Move();
+        }
     }
 
     public void Move(){
-        if(isChooseplayer){
+        
             rb.velocity=new Vector2(inputDirection.x*speed*Time.deltaTime,rb.velocity.y);
         int faceDir=(int)transform.localScale.x;
         if(inputDirection.x>0){
@@ -70,7 +80,7 @@ public class PlayerController : MonoBehaviour
             faceDir=-1;
         }
         transform.localScale=new Vector3(faceDir,1,1);
-        }
+        
         
     }
     
@@ -104,6 +114,7 @@ public class PlayerController : MonoBehaviour
         isChooseplayer=!isChooseplayer;
         if(!isChooseplayer){
             rb.velocity=new Vector2(0,0);
+            camera.enabled=false;
         }
     }
 }

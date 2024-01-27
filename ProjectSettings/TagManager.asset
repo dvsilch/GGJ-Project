@@ -3,16 +3,23 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bound
+  - Monster
+  - Player1
+  - Player2
+  - Camera
+  - Player_Up
+  - Player_Down
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Player
+  - Player1
   - Water
   - UI
-  - 
-  - 
+  - Player2
+  - Ground
   - 
   - 
   - 
@@ -40,4 +47,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Back2
+    uniqueID: 3075086619
+    locked: 0
+  - name: Back1
+    uniqueID: 3166570505
+    locked: 0
+  - name: Middle
+    uniqueID: 2266468095
+    locked: 0
+  - name: Frount
+    uniqueID: 2066780295
     locked: 0

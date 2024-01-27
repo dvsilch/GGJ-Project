@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float jumpForce;
 
+    public bool isLaugh;
+
     static List<Player> m_Players = new List<Player>();
 
     // Start is called before the first frame update

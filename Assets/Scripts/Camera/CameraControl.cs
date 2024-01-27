@@ -6,6 +6,9 @@ using Cinemachine;
 public class CameraControl : MonoBehaviour
 {
     private CinemachineConfiner2D confiner2D;
+    public Transform target;
+    public Transform backGround,middleGround;
+    private Vector2 lastpos;
 
     private void Awake(){
         confiner2D=GetComponent<CinemachineConfiner2D>();
@@ -17,7 +20,20 @@ public class CameraControl : MonoBehaviour
     /// </summary>
    private  void Start()
     {
+        lastpos=transform.position;
         GetNewCameraBound();
+    }
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        transform.position=new Vector3(target.position.x,target.position.y,transform.position.z);
+        Vector2 amountToMove=new Vector2(transform.position.x-lastpos.x,transform.position.y-lastpos.y);
+        backGround.position+=new Vector3(amountToMove.x,amountToMove.y,0);
+        middleGround.position+=new Vector3(amountToMove.x*0.5f,amountToMove.y*0.5f,0);
+        lastpos=transform.position;
+
     }
 
     private void GetNewCameraBound(){

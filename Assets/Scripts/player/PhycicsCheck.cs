@@ -23,7 +23,6 @@ public class PhycicsCheck : MonoBehaviour
     {
         isGround=Physics2D.OverlapCircle((Vector2)transform.position+bottomOffset,checkRaduis,groundLayer);
 
-    
     }
 
     /// <summary>
