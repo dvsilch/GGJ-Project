@@ -5,6 +5,7 @@ using Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class PlayerController : MonoBehaviour
         inputControl.Gameplay.Jump.started += Jump;
         inputControl.Gameplay.Change.started += PlayerStateChange;
         inputControl.Gameplay.isChoose.started += PlayerChoose;
+        inputControl.Gameplay.Restart.started += GameRestart;
         camera_up.enabled=false;
         camera_down.enabled=true;
     }
@@ -118,5 +120,9 @@ public class PlayerController : MonoBehaviour
             rb.velocity=new Vector2(0,0);
             camera.enabled=false;
         }
+    }
+    private void GameRestart(InputAction.CallbackContext context)
+    {
+        SceneManager.LoadScene(2);
     }
 }

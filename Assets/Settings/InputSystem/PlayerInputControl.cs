@@ -71,6 +71,15 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""GameStart"",
+                    ""type"": ""Button"",
+                    ""id"": ""f0f81233-9f36-435a-be61-8022f5c1293a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -258,6 +267,17 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Restart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""32c044b8-633e-4a68-9fcb-911cb9e7f3e6"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""GameStart"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -850,6 +870,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         m_Gameplay_Change = m_Gameplay.FindAction("Change", throwIfNotFound: true);
         m_Gameplay_isChoose = m_Gameplay.FindAction("isChoose", throwIfNotFound: true);
         m_Gameplay_Restart = m_Gameplay.FindAction("Restart", throwIfNotFound: true);
+        m_Gameplay_GameStart = m_Gameplay.FindAction("GameStart", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -928,6 +949,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Change;
     private readonly InputAction m_Gameplay_isChoose;
     private readonly InputAction m_Gameplay_Restart;
+    private readonly InputAction m_Gameplay_GameStart;
     public struct GameplayActions
     {
         private @PlayerInputControl m_Wrapper;
@@ -937,6 +959,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         public InputAction @Change => m_Wrapper.m_Gameplay_Change;
         public InputAction @isChoose => m_Wrapper.m_Gameplay_isChoose;
         public InputAction @Restart => m_Wrapper.m_Gameplay_Restart;
+        public InputAction @GameStart => m_Wrapper.m_Gameplay_GameStart;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -961,6 +984,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Restart.started += instance.OnRestart;
             @Restart.performed += instance.OnRestart;
             @Restart.canceled += instance.OnRestart;
+            @GameStart.started += instance.OnGameStart;
+            @GameStart.performed += instance.OnGameStart;
+            @GameStart.canceled += instance.OnGameStart;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -980,6 +1006,9 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
             @Restart.started -= instance.OnRestart;
             @Restart.performed -= instance.OnRestart;
             @Restart.canceled -= instance.OnRestart;
+            @GameStart.started -= instance.OnGameStart;
+            @GameStart.performed -= instance.OnGameStart;
+            @GameStart.canceled -= instance.OnGameStart;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1167,6 +1196,7 @@ public partial class @PlayerInputControl: IInputActionCollection2, IDisposable
         void OnChange(InputAction.CallbackContext context);
         void OnIsChoose(InputAction.CallbackContext context);
         void OnRestart(InputAction.CallbackContext context);
+        void OnGameStart(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

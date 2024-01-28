@@ -29,9 +29,9 @@ public class CameraControl : MonoBehaviour
     void Update()
     {
         transform.position=new Vector3(target.position.x,target.position.y,transform.position.z);
-        Vector2 amountToMove=new Vector2(transform.position.x-lastpos.x,transform.position.y-lastpos.y);
-        backGround.position+=new Vector3(amountToMove.x,amountToMove.y,0);
-        middleGround.position+=new Vector3(amountToMove.x*0.5f,amountToMove.y*0.5f,0);
+        Vector2 amountToMove=new Vector2(transform.position.x-lastpos.x,lastpos.y-transform.position.y);
+        backGround.position+=new Vector3(amountToMove.x,amountToMove.y*0.05f,0);
+        middleGround.position+=new Vector3(amountToMove.x*0.5f,amountToMove.y*0.1f,0);
         lastpos=transform.position;
 
     }
