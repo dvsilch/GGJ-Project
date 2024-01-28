@@ -12,6 +12,9 @@ public class Level : MonoBehaviour
     [SerializeField]
     private Transform deadzone;
 
+    [SerializeField]
+    private Transform point;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +30,22 @@ public class Level : MonoBehaviour
                 if (omoteSeeSaw.Left.CurObject.TryGetComponent<PlayerController>(out var player) && player.Change)
                 {
                     var monster = omoteSeeSaw.Right.CurObject;
+                    var x1 = monster.transform.position.x;
+                    var y1 = monster.transform.position.y;
+                    if (monster.TryGetComponent<Rigidbody2D>(out var rigidbody2D))
+                        DestroyImmediate(rigidbody2D);
+                    if (monster.TryGetComponent<Collider2D>(out var collider2D))
+                        DestroyImmediate(collider2D);
 
-                    omoteSeeSaw.ChangeRUpMode(() =>
+                    monster.transform.DOMove(point.transform.position, 1f).ToUniTask().ContinueWith(() =>
                     {
-                        monster.transform.DOMove(deadzone.transform.position, 1).ToUniTask().ContinueWith(() =>
+                        monster.transform.DOMove(deadzone.transform.position, 1f).ToUniTask().ContinueWith(() =>
                         {
                             monster.SetActive(false);
                         }).Forget();
-                    });
-                    urateSeeSaw.ChangeLUpMode();
+                    }).Forget();
+                    omoteSeeSaw.ChangeRUpMode();
+                    urateSeeSaw.ChangeRUpMode();
                 }
             }
         }

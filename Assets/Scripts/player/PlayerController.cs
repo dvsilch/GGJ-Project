@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("基本参数")]
     public float speed;
+    public float changedSpeed = 4;
+    public float notChangeSpeed = 5.2f;
 
     public float jumpForce;
     public bool Change;
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
     public void Move(){
         
-            rb.velocity=new Vector2(inputDirection.x*speed*Time.deltaTime,rb.velocity.y);
+        transform.localPosition=new Vector3(transform.localPosition.x + inputDirection.x * speed * Time.deltaTime, transform.localPosition.y);
         int faceDir=(int)transform.localScale.x;
         if(inputDirection.x>0){
             faceDir=1;
@@ -98,11 +100,11 @@ public class PlayerController : MonoBehaviour
         // Debug.Log("Change");
         Change=!Change;
         if(Change){
-            speed=200;
+            speed=changedSpeed;
             rb.gravityScale=4;
         }
         else{
-            speed=260;
+            speed=notChangeSpeed;
             rb.gravityScale=6;
         }
         
